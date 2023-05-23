@@ -5,5 +5,5 @@ test('gets correct hello mesage from function', () => {
 });
 
 test('gets correct hello mesage from .env', () => {
-    expect(getHelloMessageFromEnv()).toBe('Hello World from .env!');
+    expect(getHelloMessageFromEnv()).toBe('Hello World from environment file!');
 });

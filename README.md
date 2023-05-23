@@ -4,143 +4,158 @@
 * Node Version Manager (nvm)
 * Node.js (node, npm, npx)
 
-## Node.js libraries
+## Node.js packages
 * Typescript (typescript, @types/node)
 * TS Node (ts-node)
 * Nodemon (nodemon)
 * ESLint (eslint)
-* Jest (jest, ts-jest)
+* Jest (jest, ts-jest, @types/jest)
 * Dotenv (dotenv)
 
-## Node Version Manager (nvm)
-https://github.com/nvm-sh/nvm
+---
+## Install Node Version Manager (nvm)
+Read more about how to install nvm here: https://github.com/nvm-sh/nvm
 
-Check current version and installation documentation.
+This is an example of haow to install nvm on MacOS:
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 ```
-You may have to restart the terminal for nvm command to be available. You can check installed version by typing:
 ```
 nvm --version
 ```
-## Install Node.js LTS version using nvm:
+---
+## Install Node.js (node, npm, npx)
 ```
 nvm install --lts
-```
-Check installed Node.js versions:
-```
 nvm ls
-```
-Switch current version to a specifik installed version (v 18.x.x in the example):
-```
 nvm use 18
 ```
-Check which Node.js version is currently beeing used:
 ```
 node --version
+npm --version
 ```
 ---
-## Create new Node.js application
+## Configure new Node.js application
 ```
+mkdir FSNodeApp
+cd FSNodeAPP
 npm init -y
 ```
-This will create the package.json file. Edit this file to update name, version and description.
-### Install typescript
+This creates the file package.json. Edit this file to change name, version and description.
+
+Read more aboute package.json here: https://docs.npmjs.com/cli/v9/configuring-npm/package-json
+
+---
+## Install Node.js packages
 ```
 npm install typescript --save-dev
-```
-### Install default node types
-```
 npm install @types/node --save-dev
-```
-### Initiate typsecript
-```
-npx tsc --init --rootDir src --outDir dist
-```
-This will creat the tsconfig.json file sith some initial settings. You can change this at anytime.
-### Create first program
-```
-mkdir src
-touch src/index.ts
-```
-Edit index.ts and add a simple program:
-```
-export function getHelloMessage(): string {
-    return 'Hello World';
-}
-console.log(getHelloMessage());
-```
-Update pacakge.json with the build script:
-```
-"scripts": {
-    "build": "tsc"
-},
-```
-Compile and run program:
-```
-npx tsc
-node build/index.js
-```
-### Install usefull development tools - ts-node & nodemon
-```
 npm install ts-node --save-dev
 npm install nodemon --save-dev
-```
-The tool ts-node lets you run a typescript file directly with on the fly compilation. Nodemon also runs your program but continuously checks for changes and restarts the app i needed.
-### Update package.json
-```
-"scripts": {
-    "build": "tsc",
-    "dev": "nodemon ./src/index.ts",
-    "start": "ts-node ./src/index.ts"
-},
-```
-Test the tools with:
-```
-npm run start
-npm run dev
-```
-### Install code analysis tool - ESLint 
-```
 npm install eslint --save-dev
-```
-Configure ESLint by answering some questions (creates the file .eslintrc.json):
-```
-npm init @eslint/config
-```
-Add lint to package.json (only check .ts-files and start from the current folder):
-```
- "scripts": {
-    ...
-    "lint": "eslint --ext .ts ."
-  },
-```
-### Install test framework - Jest
-```
 npm install jest --save-dev
 npm install ts-jest --save-dev
 npm install @types/jest --save-dev
+npm install dotenv
 ```
-Add test to package.json:
+---
+## Configure Typescript
 ```
- "scripts": {
-    ...
-    "test": "jest"
-  },
+npx tsc --init --rootDir src --outDir dist
 ```
-Create the file jest.config.js, then add the folowing to configure jest to work with typescript:
-```
-module.exports = {
-    preset: 'ts-jest',
-    testEnvironment: 'node',
-    testMatch: [ '*/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)' ]
-};
-```
-Create the file ./src/tests/first.test.ts and add first test:
-```
-import { getHelloMessage } from '..';
+This creates the file tsconfig.json. 
 
-test('gets correct hello mesage', () => {
-    expect(getHelloMessage()).toBe('Hello World');
+Read more about tsconfig.json here: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+
+---
+## Configure ESLint
+```
+npm init @eslint/config
+```
+Answer the questions about your coding style. This creates the file .eslintrc.json. 
+
+Read more about .eslintrc.json here: https://eslint.org/docs/latest/use/configure/
+
+---
+## Update package.json
+```
+...
+"scripts": {
+    "build": "tsc",
+    "dev": "nodemon ./src/index.ts",
+    "start": "ts-node ./src/index.ts",
+    "lint": "eslint --ext .ts .",
+    "test": "jest"
+}
+...
+```
+---
+## Create app source code
+```
+mkdir src
+touch src/index.ts:
+```
+Edit src/index.ts:
+```
+dotenv.config();
+
+export function getHelloMessageFromEnv(): string {
+    return process.env.HELLO_MESSAGE as string;
+}
+
+export function getHelloMessage(): string {
+    return 'Hello World from function!';
+}
+console.log('Hello World!');
+```
+---
+## Create app environment file
+```
+tounch .env
+```
+Edit .env:
+```
+HELLO_MESSAGE=Hello World from environment file!
+```
+---
+## Create tests
+```
+mkdir src/tests
+touch src/tests/first.test.ts
+```
+Edit src/tests/first.test.ts:
+```
+import { getHelloMessage, getHelloMessageFromEnv } from '..';
+
+test('gets correct hello mesage from function', () => {
+    expect(getHelloMessage()).toBe('Hello World from function!');
+});
+
+test('gets correct hello mesage from .env', () => {
+    expect(getHelloMessageFromEnv()).toBe('Hello World from environment file!');
 });
 ```
+---
+## Build, run, analyse and test
+Build app:
+```
+npm run build
+```
+Run app once:
+```
+npm run start
+```
+Run app and continuously check for changes:
+```
+npm run dev
+```
+Run code analysis:
+```
+npm run lint
+```
+Run tests:
+```
+npm run lint
+```
+
+
