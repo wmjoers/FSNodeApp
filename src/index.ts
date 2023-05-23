@@ -11,4 +11,3 @@ export function getHelloMessage(): string {
 }
 
 console.log('Hello World!');
-console.log(getHelloMessageFromEnv());

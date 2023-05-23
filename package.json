@@ -1,5 +1,5 @@
 {
-  "name": "fs-node-microservice",
+  "name": "fs-node-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/dotenv": "^8.2.0",
     "@types/jest": "^29.5.1",
     "@types/node": "^20.2.1",
     "@typescript-eslint/eslint-plugin": "^5.59.6",

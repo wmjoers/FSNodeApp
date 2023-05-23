@@ -10,7 +10,7 @@
 * Nodemon (nodemon)
 * ESLint (eslint)
 * Jest (jest, ts-jest)
-* Dotenv (dotenv, @types/dotenv)
+* Dotenv (dotenv)
 
 ## Node Version Manager (nvm)
 https://github.com/nvm-sh/nvm
