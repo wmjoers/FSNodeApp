@@ -77,6 +77,21 @@ Answer the questions about your coding style. This creates the file .eslintrc.js
 Read more about .eslintrc.json here: https://eslint.org/docs/latest/use/configure/
 
 ---
+## Configure Jest
+```
+touch jest.config.json
+```
+Edit jest.config.json:
+```
+{
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": [ "*/__tests__/**/*.ts?(x)", "**/?(*.)+(spec|test).ts?(x)" ]
+}
+```
+Read more about jest.config.json here: https://jestjs.io/docs/configuration
+
+---
 ## Update package.json
 ```
 ...
