@@ -16,7 +16,7 @@
 ## Install Node Version Manager (nvm)
 Read more about how to install nvm here: https://github.com/nvm-sh/nvm
 
-This is an example of haow to install nvm on MacOS:
+This is an example of how to install nvm on MacOS:
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 ```
